@@ -29,7 +29,7 @@ class _WebViewAppState extends State<WebViewApp> {
     super.initState();
     controller = WebViewController()
       ..loadRequest(
-        Uri.parse('https://flutter.dev'),
+        Uri.parse('https://rabbit-mx.atlassian.net/servicedesk/customer/portal/6'),
       );
   }
   // ...to here.
