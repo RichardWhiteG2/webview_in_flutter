@@ -33,12 +33,8 @@ class _MenuState extends State<Menu> {
                 .loadRequest(Uri.parse('https://rabbit-mx.atlassian.net/servicedesk/customer/portal/6'));
             break;
           case _MenuOptions.userAgent:
-            final userAgent = await widget.controller
-                .runJavaScriptReturningResult('navigator.userAgent');
-            if (!mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('$userAgent'),
-            ));
+            await widget.controller
+                .loadRequest(Uri.parse('https://wa.me/qr/V5MFBE62VXJRG1'));
             break;
           case _MenuOptions.javascriptChannel:
             await widget.controller.runJavaScript('''
@@ -74,11 +70,11 @@ req.send();''');
       itemBuilder: (context) => [
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.navigationDelegate,
-          child: Text('Navigate to YouTube'),
+          child: Text('Contacto'),
         ),
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.userAgent,
-          child: Text('Show user-agent'),
+          child: Text('WhatsApp'),
         ),
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.javascriptChannel,
