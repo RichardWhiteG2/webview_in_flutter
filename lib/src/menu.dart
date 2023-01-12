@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 enum _MenuOptions {
   navigationDelegate,
   userAgent,
@@ -25,17 +27,26 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    const phoneNumber = "tel:5625549413";
     return PopupMenuButton<_MenuOptions>(
       onSelected: (value) async {
         switch (value) {
           case _MenuOptions.navigationDelegate:
             await widget.controller
-                .loadRequest(Uri.parse('https://rabbit-mx.atlassian.net/servicedesk/customer/portal/6'));
+                .loadRequest(Uri.parse('https://rabbit-mx.atlassian.net/servicedesk/customer/portal/6/group/21/create/80'));
             break;
           case _MenuOptions.userAgent:
+            
+            if (await canLaunch(phoneNumber)) {
+              await launch(phoneNumber);
+            } else {
+              throw 'Could not launch $phoneNumber';
+            }
+          break;
+/*
             await widget.controller
                 .loadRequest(Uri.parse('https://wa.me/qr/V5MFBE62VXJRG1'));
-            break;
+            break;*/
           case _MenuOptions.javascriptChannel:
             await widget.controller.runJavaScript('''
 var req = new XMLHttpRequest();
@@ -74,7 +85,7 @@ req.send();''');
         ),
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.userAgent,
-          child: Text('WhatsApp'),
+          child: Text('Llamar'),
         ),
         const PopupMenuItem<_MenuOptions>(
           value: _MenuOptions.javascriptChannel,
